@@ -76,7 +76,7 @@ class UserController extends BaseController
             ];
             return $this->sendResponse($data, 'Connexion reussie');
         } else {
-            return $this->sendError('mot de passe ou email incorrect', [], 401);
+            return $this->sendError('mot de passe ou email incorrect', 401);
         }
     }
     public function register(Request $request)
