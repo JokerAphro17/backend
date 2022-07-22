@@ -15,11 +15,19 @@ class BaseController extends Controller
             'message' => $message,
         ]);
     }
-    public function sendError($error, $code = 404)
+    public function sendError($message,$error=[], $code = 404)
     {
         return response()->json([
             'success' => false,
             'message' => $error,
         ], $code);
     }
+    public function sendInfo($message)
+    {
+        return response()->json([
+
+            'message' => $message,
+        ]);
+    }
+
 }
