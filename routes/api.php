@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,8 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/register', [UserController::class, 'register']);
-Route::get('/user',[UserController::class,'index']);
+Route::post('/signin', [AuthController::class, 'signin']);
+Route::post('/signup', [AuthController::class, 'signup']);
+Route::post('email/verify', [AuthController::class, 'verifyEmail']);
+Route::post('email/resend', [AuthController::class, 'resendVerifyEmail']);
 

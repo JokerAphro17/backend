@@ -1,11 +1,14 @@
 @component('mail::message')
-# Introduction
+# Code de verifcation
 
-The body of your message.
+Bonsoir {{ $user->lastname }}, vous vavez creer un compte sur notre Plateforme Awa,
+Nous vous souhaite la bienvenue.
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+Validez votre compte avec le code de vérification suivant:
+
+<h1>
+    {{ $user->code_verified }}
+</h1>
 
 Thanks,<br>
 {{ config('app.name') }}

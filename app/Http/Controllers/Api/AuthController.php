@@ -7,7 +7,11 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\API\BaseController;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Api\BaseController;
+use App\Mail\VerifyMail;
+
+
 
 class AuthController extends BaseController
 {
@@ -67,9 +71,9 @@ class AuthController extends BaseController
            $input['uuid']=Str::random(60);
            $input['code_verified']=mt_rand(100000, 999999);
            $user=User::create($input);
-           Mail::to($user->email)->send(new VerifyEmail($user, $user->code_verified));
+           Mail::to($user->email)->send(new VerifyMail($user));
             return $this->sendResponse($user, 'Un email de vérification vous a été envoyé.');
-        } catch (\Trowable $th) {
+        } catch (\Exception $th) {
             return $this->sendError('Erreur lors de la création du compte.', $th->getMessage(), 500);
         }
     }
@@ -96,7 +100,7 @@ class AuthController extends BaseController
             return $this->sendError('Erreur lors de la vérification du compte.', $th->getMessage(), 500);
         }
     }
-    public function resendEmail(Request $request)
+    public function resendVerifyEmail(Request $request)
     {
         $vaildator = validator($request->all(), [
             'email' => 'required|email',
@@ -109,7 +113,7 @@ class AuthController extends BaseController
            if($user){
                $user->code_verified=mt_rand(100000, 999999);
                $user->save();
-               Mail::to($user->email)->send(new VerifyEmail($user, $user->code_verified));
+               Mail::to($user->email)->send(new VerifyMail($user));
                return $this->sendResponse($user, 'Un email de vérification vous a été envoyé.');
            }else{
                return $this->sendInfo('Email inconnu.');

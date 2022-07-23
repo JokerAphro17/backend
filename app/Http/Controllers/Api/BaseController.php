@@ -19,7 +19,8 @@ class BaseController extends Controller
     {
         return response()->json([
             'success' => false,
-            'message' => $error,
+            'message' => $message,
+            'error_message' => $error,
         ], $code);
     }
     public function sendInfo($message)
