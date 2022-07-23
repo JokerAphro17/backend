@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Mail\VerifyMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\PasswordReset;
+use App\Mail\ResetPasswordMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController;
-use App\Mail\VerifyMail;
 
 
 
@@ -105,9 +108,11 @@ class AuthController extends BaseController
         $vaildator = validator($request->all(), [
             'email' => 'required|email',
         ]);
+
         if ($vaildator->fails()) {
             return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
         }
+
         try{
            $user=User::where('email', $request->email)->first();
            if($user){
@@ -122,5 +127,29 @@ class AuthController extends BaseController
             return $this->sendError('Erreur lors de la réenvois du code de vérification.', $th->getMessage(), 500);
         }
     }
+    public function resetPassword(Request $request){
+
+        $vaildator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($vaildator->fails()) {
+            return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
+        }
+        try{
+           $user=User::where('email', $request->email)->first();
+           if(!$user){
+               return $this->sendError('Email inconnu.');
+           }
+            $input=$request->all();
+            $input['token']=Str::random(60);
+            PasswordReset::create($input);
+            Mail::to($user->email)->send(new ResetPasswordMail($input['token']));
+            return $this->sendResponse($user, 'Un email de réinitialisation de mot de passe vous a été envoyé.');
+        } catch (\Trowable $th) {
+            return $this->sendError('Erreur lors de la réinitialisation du mot de passe.', $th->getMessage(), 500);
+        }
+    }
 }
+           
+               
 
