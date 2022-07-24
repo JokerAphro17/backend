@@ -1,12 +1,14 @@
 @component('mail::message')
-# Introduction
+@component('mail::message')
+Votre compte a été créé avec succès. <br>
+Vos informations de connexion sont les suivantes : <br>
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+<h3> Informations de connexion </h3>
+<ul>
+    <li>Adresse email : {{ $user->email }}</li>
+    <li>Mot de passe : {{ $password }}</li>
+</ul>
+Merci
 @endcomponent
-
-Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Mail\UserCreated;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Api\BaseController;
 
 class UserController extends BaseController
 {
@@ -48,11 +51,12 @@ class UserController extends BaseController
         try {
             $admin = User::where('uuid', $request->uuid_admin)->first();
             if ($admin->role != 'superadmin') {
-                return $this->sendError('Vous n\'avez pas les droits pour créer un utilisateur.');
+                return $this->sendError('Vous n\'avez pas les droits pour créer un un utilisateur.');
             }
             $input = $request->all();
+            $input['uuid'] = Str::uuid();
             $input['email_verified_at'] = now();
-            $password = str_random(8);
+            $password = Str::random(8);
             $input['password'] = Hash::make($password);
             $user = User::create($input);
             Mail::to($user->email)->send(new UserCreated($user, $password));
@@ -88,9 +92,39 @@ class UserController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'uuid' => 'required|exists:users,uuid',
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'email' => 'required|email',
+            'role' => 'required|in:admin,superadmin',
+            'uuid_admin' => 'required|exists:users,uuid',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+        try {
+            $input = $request->all();
+            $user = User::where('uuid', $request->uuid)->first();
+            $admin = User::where('uuid', $request->uuid_admin)->first();
+            if ($admin->role != 'superadmin' && $user->role == 'superadmin') {
+                return $this->sendError('Vous n\'avez pas les droits pour modifier un utilisateur.');
+            }
+            if(!$user->last_online || $input['email'] == $user->email) {
+                $user->update($input);
+                return $this->sendResponse($user, 'Utilisateur modifié avec success.');
+            }
+            unset($input['email']);
+            $user->update($input);
+            return $this->sendResponse($user, 'Utilisateur modifié avec success mais pas son email.');
+
+        } catch (\Exception $e) {
+            return $this->sendError('Application crash.', $e->getMessage());
+        }
+        
+
     }
 
     /**
