@@ -23,3 +23,8 @@ Route::post('password/reset', [AuthController::class, 'resetPassword']);
 Route::post('password/change', [AuthController::class, 'changePassword']);
 
 Route::resource('user', UserController::class);
+
+
+Route::middleware('auth:api')->group(function () {
+    
+});
