@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
-    return json_encode(['message' => 'Vous n\'avez pas accès à cette page'],403
-);
-} );
+Route::get('/{any}', [FrontController::class, 'index'])->where('any', '^(?!api).*$');
