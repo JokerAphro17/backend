@@ -1,5 +1,4 @@
 import React, { lazy } from "react";
-import MainLoadable from "./components/loadable";
 import {AuthProvider} from './utilities/context/authContext'
 import { AppProvider } from "./utilities/context/appContext";
 
@@ -9,9 +8,7 @@ const App = () => {
     return (
         <AppProvider>
             <AuthProvider>
-                <MainLoadable>
                     <LazyRoute />
-                </MainLoadable>
             </AuthProvider>
         </AppProvider>
     )

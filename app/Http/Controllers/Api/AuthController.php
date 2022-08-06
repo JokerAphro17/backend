@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\PasswordReset;
 use App\Mail\ResetPasswordMail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -23,35 +24,31 @@ class AuthController extends BaseController
         $vaildator = validator($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
-            'password_confirmation' => 'required|same:password',
         ]);
         if ($vaildator->fails()) {
             return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
         }
 
         try{
-           $user = User::where('email', $request->email)->first();
-           if($user){
-               if(Hash::check($request->password, $user->password)){
-                if(!$user->email_verified_at){
-                    return $this->sendError('Votre compte n\'est pas encore activé veuillez vérifier votre boîte mail.');
-                }
-                   $user->last_login = now();
-                   $user->save();
-                   $token = Str::random(60);
-                   $userProfile = [
-                       'uuid' => $user->uuid,
-                        'lastname' => $user->lastname,
-                        'firstname' => $user->firstname,
-                        'telephone' => $user->telephone,
-                        'email' => $user->email,
-                        'token' => $token,
-                   ];
-                   return $this->sendResponse($userProfile, 'Utilisateur connecté avec succès.');
-               }else{
-                   return $this->sendError('Email ou mot de passe incorrect.');
-               }
+          $loginData = $request->only('email', 'password');
+            if(!auth()->attempt($loginData)){
+                return $this->sendError('Email ou mot de passe incorrect.', [], 401);
             }
+            $user = Auth::user();
+            if(!$user->email_verified_at){
+                return $this->sendError('Votre compte n\'est pas verifié.', [], 401);
+            }
+            $token = $user->createToken('API TOKEN')->accessToken;
+            $userProfile = [
+                'uuid' => $user->uuid,
+                'lastname' => $user->lastname,
+                'firstname' => $user->firstname,
+                'email' => $user->email,
+                'telephone' => $user->telephone,
+                'role' => $user->role,
+                'token' => $token,
+            ];
+             return $this->sendResponse($userProfile, 'Utilisateur authentifié avec succès.');
         } catch (\Trowable $th) {
             return $this->sendError('Erreur lors de la connexion.', $th->getMessage(), 500);
         }
@@ -141,7 +138,7 @@ class AuthController extends BaseController
                return $this->sendError('Email inconnu.');
            }
             $input=$request->all();
-            $input['token']=Str::random(60);
+            $input['token']=Str::random(5);
             PasswordReset::create($input);
             Mail::to($user->email)->send(new ResetPasswordMail($input['token']));
             return $this->sendResponse($user, 'Un email de réinitialisation de mot de passe vous a été envoyé.');
@@ -149,7 +146,46 @@ class AuthController extends BaseController
             return $this->sendError('Erreur lors de la réinitialisation du mot de passe.', $th->getMessage(), 500);
         }
     }
+
+    public function resetPasswordConfirm(Request $request){
+        $vaildator = Validator::make($request->all(), [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'password_confirmation' => 'required:same:password',
+        ]);
+        if ($vaildator->fails()) {
+            return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
+        }
+        try{
+           $passwordReset=PasswordReset::where('token', $request->token)->where('email', $request->email)->first();
+
+           if(!$passwordReset){
+               return $this->sendError('Token inconnu.');
+           }
+            $user=User::where('email', $request->email)->first();
+            $user->password=Hash::make($request->password);
+            $user->save();
+            $passwordReset->delete();
+           return $this->sendInfo('Mot de passe réinitialisé avec succès.');
+        } catch (\Trowable $th) {
+            return $this->sendError('Erreur lors de la réinitialisation du mot de passe.', $th->getMessage(), 500);
+        }
+    }
+
+
+    public function logout(Request $request)
+    {
+        try{
+            $request->user()->token()->revoke();
+            return $this->sendResponse([], 'Vous êtes déconnecté.');
+        } catch (\Trowable $th) {
+            return $this->sendError('Erreur lors de la déconnexion.', $th->getMessage(), 500);
+    }
+    }
 }
-           
+
+
+
                
 

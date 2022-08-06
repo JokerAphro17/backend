@@ -15,6 +15,17 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
+            $table->string('transaction_id');
+            $table->string('moyen_paiement');
+            $table->string('devise_envoyee');
+            $table->string('devise_recue');
+            $table->float('montant_envoye');
+            $table->float('montant_recu');
+            $table->float('adress_sender');
+            $table->float('adress_receiver');
+            $table->foreign('devise_envoyee')->references('sigle')->on('monnaies');
+            $table->foreign('devise_recue')->references('sigle')->on('monnaies');
             $table->timestamps();
         });
     }
