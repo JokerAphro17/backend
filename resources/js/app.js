@@ -1,4 +1,4 @@
 require('./bootstrap');
 
-// React end point
-require('./src')
+// react endpoints
+require('./src');

@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from './App';
-import './index.css';
 
-const rootTag = document.getElementById('root');
+import App from "./App";
 
-if(rootTag) {
+const rootTag = document.getElementById("root");
+
+if (rootTag) {
     const root = ReactDOM.createRoot(rootTag);
     root.render(
         <React.StrictMode>

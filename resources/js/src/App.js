@@ -1,20 +1,20 @@
-import React, { lazy } from "react";
-import MainLoadable from "./components/loadable";
-import {AuthProvider} from './utilities/context/authContext'
-import { AppProvider } from "./utilities/context/appContext";
+import React from "react";
+import AdminRoute from "./router/admin";
+import { Routes, Route } from "react-router-dom";
+import AuthRoute from "./router/auth";
+import AdminGuard from "./services/AdminGuard";
 
 const App = () => {
-    const LazyRoute = lazy(() => import('./router/configRoute'))
-
     return (
-        <AppProvider>
-            <AuthProvider>
-                <MainLoadable>
-                    <LazyRoute />
-                </MainLoadable>
-            </AuthProvider>
-        </AppProvider>
-    )
+        <Routes>
+            <Route path="/*" element={
+            <AdminGuard>
+                <AdminRoute />
+            </AdminGuard>
+            } />
+            <Route path="/auth/*" element={<AuthRoute />} />
+        </Routes>
+    );
 };
 
 export default App;

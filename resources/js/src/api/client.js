@@ -12,6 +12,7 @@ const HTTP_CLIENT = axios.create({
 
 HTTP_CLIENT.interceptors.request.use(
   config => {
+  
     const handlerData = HANDLER_STORAGE.GET(USER_SESSION, 'object');
     const user = handlerData?.data ?? null;
     if (user?.token) {
