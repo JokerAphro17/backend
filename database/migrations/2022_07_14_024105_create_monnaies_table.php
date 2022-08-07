@@ -15,6 +15,13 @@ class CreateMonnaiesTable extends Migration
     {
         Schema::create('monnaies', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->string('uuid')->unique();
+            $table->string('image')->nullable();
+            $table->string('sigle')->unique();
+            $table->string('devise');
+            $table->float('taux_change');
+            $table->float('stock');
             $table->timestamps();
         });
     }

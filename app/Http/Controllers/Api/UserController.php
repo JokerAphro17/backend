@@ -71,13 +71,12 @@ class UserController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show(User $user)
     {
         try {
-            $user = User::where('uuid', $uuid)->first();
             return $this->sendResponse($user, 'Utilisateur envoyé avec success.');
         } catch (\Exception $e) {
             return $this->sendError('Application crash.', $e->getMessage());
@@ -89,42 +88,31 @@ class UserController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
-            'uuid' => 'required|exists:users,uuid',
             'lastname' => 'required',
             'firstname' => 'required',
             'email' => 'required|email',
-            'role' => 'required|in:admin,superadmin',
-            'uuid_admin' => 'required|exists:users,uuid',
-        ]);
+            'role' => 'required|in:admin,superadmin',        ]);
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
         try {
             $input = $request->all();
-            $user = User::where('uuid', $request->uuid)->first();
-            $admin = User::where('uuid', $request->uuid_admin)->first();
-            if ($admin->role != 'superadmin' && $user->role == 'superadmin') {
+            $admin = $request->user();
+            if ($admin->role =='user' && $user->role == 'superadmin') {
                 return $this->sendError('Vous n\'avez pas les droits pour modifier un utilisateur.');
             }
-            if(!$user->last_online || $input['email'] == $user->email) {
-                $user->update($input);
-                return $this->sendResponse($user, 'Utilisateur modifié avec success.');
-            }
-            unset($input['email']);
             $user->update($input);
-            return $this->sendResponse($user, 'Utilisateur modifié avec success mais pas son email.');
-
+            return $this->sendResponse($user, 'Utilisateur modifié avec success.');
         } catch (\Exception $e) {
             return $this->sendError('Application crash.', $e->getMessage());
         }
-        
-
+       
     }
 
     /**
