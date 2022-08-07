@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 
@@ -22,8 +23,8 @@ Route::post('email/resend', [AuthController::class, 'resendVerifyEmail']);
 Route::post('password/reset', [AuthController::class, 'resetPassword']);
 Route::post('password/change', [AuthController::class, 'changePassword']);
 
-Route::resource('user', UserController::class);
 
+Route::ApiResource('/coupons', CouponController::class);
 
 Route::middleware('auth:api')->group(function () {
   

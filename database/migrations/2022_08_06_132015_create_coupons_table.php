@@ -15,6 +15,12 @@ class CreateCouponsTable extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
+            $table->string('code')->unique();
+            $table->float('cote');
+            $table->integer('nb_matchs');
+            $table->date('date_debut');
+            $table->enum('status', ['en cours', 'perdu', 'gagné'])->default('en cours');
             $table->timestamps();
         });
     }
