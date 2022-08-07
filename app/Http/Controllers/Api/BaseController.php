@@ -26,7 +26,6 @@ class BaseController extends Controller
     public function sendInfo($message)
     {
         return response()->json([
-
             'message' => $message,
         ]);
     }
