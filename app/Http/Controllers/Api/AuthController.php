@@ -26,7 +26,7 @@ class AuthController extends BaseController
             'password' => 'required',
         ]);
         if ($vaildator->fails()) {
-            return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
+            return $this->sendError('Erreur de validations des champs.', $vaildator->errors(),400);
         }
 
         try{
@@ -36,7 +36,7 @@ class AuthController extends BaseController
             }
             $user = Auth::user();
             if(!$user->email_verified_at){
-                return $this->sendError('Votre compte n\'est pas verifié.', [], 401);
+                return $this->sendError('Votre compte n\'est pas verifié.', [], 403);
             }
             $token = $user->createToken('API TOKEN')->accessToken;
             $userProfile = [
@@ -94,7 +94,7 @@ class AuthController extends BaseController
                $user->save();
                return $this->sendResponse($user, 'Votre compte a été activé avec succès.');
            }else{
-               return $this->sendInfo('Code de vérification incorrect.');
+               return $this->sendError('Code de vérification incorrect.', [], 401);
            }
         } catch (\Trowable $th) {
             return $this->sendError('Erreur lors de la vérification du compte.', $th->getMessage(), 500);
@@ -116,6 +116,7 @@ class AuthController extends BaseController
                $user->code_verified=mt_rand(100000, 999999);
                $user->save();
                Mail::to($user->email)->send(new VerifyMail($user));
+
                return $this->sendResponse($user, 'Un email de vérification vous a été envoyé.');
            }else{
                return $this->sendInfo('Email inconnu.');
