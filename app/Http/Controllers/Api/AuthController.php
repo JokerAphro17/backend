@@ -28,17 +28,18 @@ class AuthController extends BaseController
         if ($vaildator->fails()) {
             return $this->sendError('Erreur de validations des champs.', $vaildator->errors(),400);
         }
-
+        
         try{
           $loginData = $request->only('email', 'password');
             if(!auth()->attempt($loginData)){
-                return $this->sendError('Email ou mot de passe incorrect.', [], 401);
+                return $this->sendError('Email ou mot de passe incorrect.', [],401);
             }
             $user = Auth::user();
             if(!$user->email_verified_at){
                 return $this->sendError('Votre compte n\'est pas verifié.', [], 403);
             }
             $token = $user->createToken('API TOKEN')->accessToken;
+            $user->last_login = now();
             $userProfile = [
                 'uuid' => $user->uuid,
                 'lastname' => $user->lastname,

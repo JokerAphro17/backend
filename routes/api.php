@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\UserController;
 Route::post('/signin', [AuthController::class, 'signin']);
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('email/verify', [AuthController::class, 'verifyEmail']);
-Route::post('email/resend', [AuthController::class, 'resendVerifyEmail']);
+Route::post('account/verify/resend', [AuthController::class, 'resendVerifyEmail']);
 Route::post('password/reset', [AuthController::class, 'resetPassword']);
 Route::post('password/change', [AuthController::class, 'changePassword']);
 
