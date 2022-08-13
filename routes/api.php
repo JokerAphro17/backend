@@ -18,14 +18,13 @@ use App\Http\Controllers\Api\UserController;
 */
 Route::post('/signin', [AuthController::class, 'signin']);
 Route::post('/signup', [AuthController::class, 'signup']);
-Route::post('email/verify', [AuthController::class, 'verifyEmail']);
+Route::post('account/verify', [AuthController::class, 'verifyEmail']);
 Route::post('account/verify/resend', [AuthController::class, 'resendVerifyEmail']);
 Route::post('password/reset', [AuthController::class, 'resetPassword']);
 Route::post('password/change', [AuthController::class, 'changePassword']);
 
 
-Route::ApiResource('/coupons', CouponController::class);
-
 Route::middleware('auth:api')->group(function () {
+    Route::resource('users', UserController::class);
   
 });
