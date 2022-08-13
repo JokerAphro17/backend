@@ -1,11 +1,31 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUsers } from "../../../../api/request";
+import axios from "axios"; 
 
 const All = () => {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+      
+        const User = async () => {
+            const response = await getUsers();
+            setUsers(response.data.data);
+            console.log(response.data.data);
+        }
+        User();
+        
+    },[]);
+
+
+
+
+
     const navigate = useNavigate();
     return (
         <>
-            <div class="flex flex-col py-12">
-                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 px-8 py-12">
+            <div class="flex flex-col">
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 px-8 py-6">
                     {/* button float right */}
 
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -14,8 +34,8 @@ const All = () => {
                                 <div class="flex space-x-2 justify-center">
                                     <button
                                         type="button"
-                                        onClick= {() => {
-                                            navigate("/user/add")
+                                        onClick={() => {
+                                            navigate("/user/add");
                                         }}
                                         class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                     >
@@ -23,74 +43,70 @@ const All = () => {
                                     </button>
                                 </div>
                             </div>
-                            <table class="min-w-full border text-center">
-                                <thead class="border-b">
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            class="text-sm font-medium text-gray-900 px-6 py-4 border-2"
-                                        >
-                                            #
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            class="text-sm font-medium text-gray-900 px-6 py-4 border-2"
-                                        >
-                                            Nom
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            class="text-sm font-medium text-gray-900 px-6 py-4 border-2"
-                                        >
-                                            Prenom
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            class="text-sm font-medium text-gray-900 px-8 py-4 border-2"
-                                        >
-                                            Email
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            class="text-sm font-medium text-gray-900 px-6 py-4 border-2"
-                                        >
-                                            Numero
-                                        </th>
+                            <div class="text-gray-900 bg-gray-200">
+                                <div class="p-4 flex">
+                                    <h1 class="text-3xl">Users</h1>
+                                </div>
+                                <div class="px-3 py-4 flex justify-center">
+                                    <table class="w-full text-md bg-white shadow-md rounded mb-4">
+                                        <tbody>
+                                            <tr class="border-b">
+                                                <th class="text-left p-3 px-5">
+                                                  Full  Name
+                                                </th>
+                                                <th class="text-left p-3 px-5">
+                                                    Email
+                                                </th>
+                                                <th class="text-left p-3 px-5">
+                                                    Numero
+                                                </th>
+                                                <th class="text-left p-3 px-5">
+                                                    Role
+                                                </th>
+                                                <th class="text-center p-3 px-5">
+                                                    Action
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                            { users.map((user) => (
+                                                <tr class="border-b hover:bg-orange-100 bg-gray-100">
+                                                <td class="p-3 px-5">
+                                                   {user.lastname} {user.firstname}
+                                                </td>
+                                                <td class="p-3 px-5">
+                                                   { user.email}
+                                                </td>
+                                                <td class="p-3 px-5">
+                                                    {user.telephone}
+                                                </td>
+                                                <td class="p-3 px-5">
+                                                    {user.role}
+                                                </td>
+                                                <td class="p-3 px-5 flex justify-end">
+                                                    <button
+                                                        type="button"
+                                                        class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                                                    >
+                                                        edit
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            ))}
+                                           
 
-                                        <th
-                                            scope="col"
-                                            class="text-sm font-medium text-gray-900 px-6 py-4 border-2"
-                                        >
-                                            Action
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="border-b">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-2">
-                                            1
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-2">
-                                            Mark
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-2">
-                                            Otto
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-2">
-                                            @mdogmail
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                                            707072
-                                        </td>
-                                        <td
-                                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                                            border-2
-                                        >
-                                            Supprimer
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        
+                                        
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>{" "}
                         </div>
                     </div>
                 </div>

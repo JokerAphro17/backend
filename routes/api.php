@@ -26,6 +26,11 @@ Route::post('password/change', [AuthController::class, 'changePassword']);
 
 Route::ApiResource('/coupons', CouponController::class);
 
+Route::apiResource('/users' , UserController::class);
+
+
 Route::middleware('auth:api')->group(function () {
+    Route::apiResource('/users' , UserController::class);
+    
   
 });

@@ -7,7 +7,7 @@ const AuthRoute = () => {
             <Routes>
                 <Route element={<AdminLayout />}>
                     <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
+                    {/* <Route path="register" element={<Register />} /> */}
                 </Route>
             </Routes>
         </>
