@@ -40,6 +40,7 @@ class AuthController extends BaseController
             }
             $token = $user->createToken('API TOKEN')->accessToken;
             $user->last_login = now();
+            $user->save();
             $userProfile = [
                 'uuid' => $user->uuid,
                 'lastname' => $user->lastname,
@@ -69,7 +70,7 @@ class AuthController extends BaseController
         try{
            $input=$request->all();
            $input['password']=Hash::make($input['password']);
-           $input['uuid']=Str::random(60);
+           $input['uuid']=Str::uuid();
            $input['code_verified']=mt_rand(100000, 999999);
            $user=User::create($input);
            Mail::to($user->email)->send(new VerifyMail($user));
@@ -127,7 +128,6 @@ class AuthController extends BaseController
         }
     }
     public function resetPassword(Request $request){
-
         $vaildator = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
