@@ -35,7 +35,11 @@ const Login = () => {
 
                                     helperText={errors.email && errors.email.message}
                                 />)}
+<<<<<<< HEAD
                                 nj
+=======
+                                fhfhf
+>>>>>>> c8bc66d1a3a8461a71bc80df6275d83bcfb0bc80
                                 rules={{ required: "Email est requis",
                                     pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Adress email invalide" },
                                 }}
