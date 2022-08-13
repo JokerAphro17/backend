@@ -1,39 +1,67 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";
-
-
-
-
-
+import { FormControlClasses } from "@mui/material/FormControl";
+import { Controller, useForm } from "react-hook-form";
 const Login = () => {
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+      } = useForm();
+
     return (
         <>
             <div class="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800 mt-8 border-2 border-gray-200">
                 <h1 class="text-3xl font-semibold text-center text-gray-700 dark:text-white">
                     Brand
                 </h1>
-
-                <form class="mt-8"  >
+                {console.log(errors)}
+                <form onSubmit={handleSubmit(data => console.log(data))}>
                     <div class="mt-8">
-                        <TextField
-                            label="Email"
-                            id="outlined-size-small"
-                            size="small"
-                            fullWidth
-                          
-                        />
+                    
+                        <Controller 
+                            control={control}
+                            name="email"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <TextField
+                                    label="Email"
+                                    id="outlined-size-small"
+                                    size="small"
+                                    fullWidth
+                                    error = {errors.email}
+                                    value={value || ""}
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    helperText={errors.email && errors.email.message}
+                                />)}
+                                rules={{ required: "Email est requis",
+                                    pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Adress email invalide" },
+                                }}
+                        />       
                     </div>
 
                     <div class="mt-8">
-                       {/* Password TextField*/}
-                        <TextField
-                        type={'password'}
-                            label="Password"
-                            id="outlined-size-small"
-                            size="small"
-                            fullWidth
-                            
+                        <Controller
+                            control={control}
+                            name="password"
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <TextField
+                                type={'password'}
+                                    label="Password"
+                                    id="outlined-size-small"
+                                    size="small"
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    value={value || ""}
+                                    fullWidth
+                                    error = {errors.password}
+                                    helperText={errors.password && errors.password.message}
+                                />
+                            )}
+                            rules={{ required: "Password est requis" }}
                         />
+
+                                
                         <a
                             href="#"
                             class="text-xs text-gray-600 dark:text-gray-400 hover:underline"
@@ -43,9 +71,7 @@ const Login = () => {
                     </div>
 
                     <div class="mt-6">
-                        <button class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-                            Login
-                        </button>
+                        <input value="Login" type="submit" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"/>
                     </div>
                 </form>
 
