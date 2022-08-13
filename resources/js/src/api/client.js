@@ -1,7 +1,7 @@
 // axios instance and handler error
 
 import axios from 'axios';
-import { basicNotif } from '../components/notification';
+
 import HANDLER_STORAGE from '../data';
 import { API_URL, TOKEN_TYPE, USER_SESSION } from '../utilities/constant';
 
@@ -33,8 +33,7 @@ HTTP_CLIENT.interceptors.response.use(
     const {response} = error;
     if(response && response.status === 401) {
         HANDLER_STORAGE.REMOVE(USER_SESSION);
-        basicNotif("Session expirée, Veuillez vous reconnecter.")
-        location.replace('/login')
+        location.replace('auth/login')
     }
     return Promise.reject(error);
   },
@@ -60,16 +59,4 @@ export const handlingErrors = error => {
   return error?.message ?? 'Oops !! Léger souci.'
 };
 
-export const formatPropValueToString = (error, objectMessage={}) => {
-    try {
-        const _message = {...objectMessage};
-        for (const key in error) {
-            if (error.hasOwnProperty(key)) {
-                _message[key] = error[key]?.toString();
-            }
-        }
-        return _message;
-    } catch (error) {
-        return objectMessage;
-    }
-}
+
