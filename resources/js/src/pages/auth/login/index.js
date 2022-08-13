@@ -32,10 +32,10 @@ const Login = () => {
                                     value={value || ""}
                                     onChange={onChange}
                                     onBlur={onBlur}
-                                    
+
                                     helperText={errors.email && errors.email.message}
                                 />)}
-                                
+                                nj
                                 rules={{ required: "Email est requis",
                                     pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Adress email invalide" },
                                 }}
