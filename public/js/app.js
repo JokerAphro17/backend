@@ -20416,8 +20416,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react-hook-form'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -20425,31 +20424,79 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var Login = function Login() {
+  var _useForm = Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react-hook-form'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(),
+      control = _useForm.control,
+      handleSubmit = _useForm.handleSubmit,
+      errors = _useForm.formState.errors;
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       "class": "w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800 mt-8 border-2 border-gray-200",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
         "class": "text-3xl font-semibold text-center text-gray-700 dark:text-white",
         children: "Brand"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-        "class": "mt-8",
+      }), console.log(errors), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+        onSubmit: handleSubmit(function (data) {
+          return console.log(data);
+        }),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           "class": "mt-8",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            label: "Email",
-            id: "outlined-size-small",
-            size: "small",
-            fullWidth: true
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react-hook-form'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+            control: control,
+            name: "email",
+            render: function render(_ref) {
+              var _ref$field = _ref.field,
+                  onChange = _ref$field.onChange,
+                  onBlur = _ref$field.onBlur,
+                  value = _ref$field.value;
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                label: "Email",
+                id: "outlined-size-small",
+                size: "small",
+                fullWidth: true,
+                error: errors.email,
+                value: value || "",
+                onChange: onChange,
+                onBlur: onBlur,
+                helperText: errors.email && errors.email.message
+              });
+            },
+            rules: {
+              required: "Email est requis",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Adress email invalide"
+              }
+            }
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           "class": "mt-8",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            type: 'password',
-            label: "Password",
-            id: "outlined-size-small",
-            size: "small",
-            fullWidth: true
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react-hook-form'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+            control: control,
+            name: "password",
+            render: function render(_ref2) {
+              var _ref2$field = _ref2.field,
+                  onChange = _ref2$field.onChange,
+                  onBlur = _ref2$field.onBlur,
+                  value = _ref2$field.value;
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                type: 'password',
+                label: "Password",
+                id: "outlined-size-small",
+                size: "small",
+                onChange: onChange,
+                onBlur: onBlur,
+                value: value || "",
+                fullWidth: true,
+                error: errors.password,
+                helperText: errors.password && errors.password.message
+              });
+            },
+            rules: {
+              required: "Password est requis"
+            }
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
             href: "#",
             "class": "text-xs text-gray-600 dark:text-gray-400 hover:underline",
@@ -20457,9 +20504,10 @@ var Login = function Login() {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           "class": "mt-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            "class": "w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600",
-            children: "Login"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            value: "Login",
+            type: "submit",
+            "class": "w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {

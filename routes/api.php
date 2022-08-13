@@ -30,7 +30,5 @@ Route::apiResource('/users' , UserController::class);
 
 
 Route::middleware('auth:api')->group(function () {
-   
     
-
 });
