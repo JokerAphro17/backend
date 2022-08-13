@@ -24,7 +24,7 @@ const All = () => {
     const navigate = useNavigate();
     return (
         <>
-            <div class="flex flex-col">
+            <div class="flex flex-col px-8">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 px-8 py-6">
                     {/* button float right */}
 
