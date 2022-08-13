@@ -13,7 +13,7 @@ const Login = () => {
                     Brand
                 </h1>
 
-                <form class="mt-8" onSubmit={handleLogin} >
+                <form class="mt-8"  >
                     <div class="mt-8">
                         <TextField
                             label="Email"
