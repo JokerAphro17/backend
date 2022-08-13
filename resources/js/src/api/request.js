@@ -18,3 +18,15 @@ export const signinUsers = (params) =>
             });
     });
 
+    export const getUsers = () => 
+    new Promise((resolve, reject) => {
+        HTTP_CLIENT.get("users")
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                const message = handlingErrors(error);
+                reject(message);
+            });
+    }
+    );
