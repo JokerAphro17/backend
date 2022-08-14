@@ -75,7 +75,7 @@ export const AccountProfileDetails = (props) => {
                     label="Prenom"
                     onChange={onChange}
                     onBlur={onBlur}
-                    value={value || ""}
+                    value={value || "hjbhfg"}
                     error = {errors.firstName}
                     helperText = {errors.firstName && errors.firstName.message}
                     variant="outlined"
@@ -126,8 +126,7 @@ export const AccountProfileDetails = (props) => {
                     name="email"
                     onChange={onChange}
                     onBlur={onBlur}
-                    required
-                    value={user.email || ""}
+                    value={value || ""}
                     variant="outlined" 
                     error = {errors.email}
                     helperText = {errors.email && errors.email.message}
