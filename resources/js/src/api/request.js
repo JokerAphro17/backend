@@ -30,3 +30,29 @@ export const signinUsers = (params) =>
             });
     }
     );
+    export const me = () =>
+       new Promise((resolve, reject) => {
+              HTTP_CLIENT.get("me")
+                .then((response) => {
+                     resolve(response);
+                })
+                .catch((error) => {
+                     const message = handlingErrors(error);
+                     reject(message);
+                });
+         }
+            );
+    export const getUser = (uuid) =>
+         new Promise((resolve, reject) => {
+                  HTTP_CLIENT.get(`users/${uuid}`)
+                 .then((response) => {
+                        resolve(response);
+                 })
+                 .catch((error) => {
+                        const message = handlingErrors(error);
+                        reject(message);
+                 });
+            }
+                );
+        
+     
