@@ -15,7 +15,7 @@ const Login = () => {
                 <h1 class="text-3xl font-semibold text-center text-gray-700 dark:text-white">
                     Brand
                 </h1>
-                {console.log(errors)}
+               
                 <form onSubmit={handleSubmit(data => console.log(data))}>
                     <div class="mt-8">
                     
@@ -34,7 +34,7 @@ const Login = () => {
                                     onBlur={onBlur}
                                     helperText={errors.email && errors.email.message}
                                 />)}
-                                fhfhf
+                               
                                 rules={{ required: "Email est requis",
                                     pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Adress email invalide" },
                                 }}

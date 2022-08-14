@@ -36,6 +36,7 @@
         "flowbite-react": "^0.1.5",
         "react-hook-form": "^7.34.1",
         "react-router-dom": "^6.3.0",
-        "simplebar-react": "^2.4.1"
+        "simplebar-react": "^2.4.1",
+        "sweetalert2": "^11.4.26"
     }
 }

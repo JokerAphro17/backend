@@ -30,3 +30,17 @@ export const signinUsers = (params) =>
             });
     }
     );
+
+   export const addAdmin = (params) => 
+    new Promise((resolve, reject) => {
+        HTTP_CLIENT.post("users", params)
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                const message = handlingErrors(error);
+                reject(message);
+            });
+    });
+
+    

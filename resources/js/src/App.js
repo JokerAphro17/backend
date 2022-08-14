@@ -2,7 +2,6 @@ import React from "react";
 import AdminRoute from "./router/admin";
 import { Routes, Route } from "react-router-dom";
 import AuthRoute from "./router/auth";
-import AdminGuard from "./services/AdminGuard";
 
 const App = () => {
     return (

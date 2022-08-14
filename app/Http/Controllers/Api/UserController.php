@@ -42,27 +42,26 @@ class UserController extends BaseController
             'lastname' => 'required',
             'firstname' => 'required',
             'email' => 'required|email|unique:users',
-            'role' => 'required|in:superadmin,admin',
-            'uuid_admin' => 'required|exists:users,uuid',
+            //'role' => 'required|in:superadmin,admin',
+            //'uuid_admin' => 'required|exists:users,uuid', 
         ]);
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return $this->sendError('Validation Error.', $validator->errors(),400);
         }
         try {
-            $admin = User::where('uuid', $request->uuid_admin)->first();
-            if ($admin->role != 'superadmin') {
-                return $this->sendError('Vous n\'avez pas les droits pour créer un un utilisateur.');
-            }
+           
             $input = $request->all();
             $input['uuid'] = Str::uuid();
             $input['email_verified_at'] = now();
+            $input['role'] = 'admin';
+            
             $password = Str::random(8);
             $input['password'] = Hash::make($password);
             $user = User::create($input);
             Mail::to($user->email)->send(new UserCreated($user, $password));
-            return $this->sendResponse($user, 'Utilisateur créé avec success.');
+            return $this->sendResponse($user, 'Utilisateur créé avec success.',200 );
         } catch (\Exception $e) {
-            return $this->sendError('Application crash.', $e->getMessage());
+            return $this->sendError('Application crash.', $e->getMessage() ,500 );
         }
         
 
