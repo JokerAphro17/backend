@@ -31,4 +31,5 @@ Route::ApiResource('/coupons', CouponController::class);
 Route::middleware('auth:api')->group(function () {
     route::get('/me', [AuthController::class, 'me']);
     Route::apiResource('/users' , UserController::class);
+    Route::get('/users/page/{page}', [UserController::class, 'userListePaginate']);
 });
