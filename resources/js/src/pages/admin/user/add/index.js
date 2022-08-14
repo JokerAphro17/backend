@@ -27,10 +27,11 @@ const AddUser = () => {
             title: 'Success',
             text: 'User Added Successfully',
             icon: 'success',
-            confirmButtonText: 'Ok'
+            confirmButtonText: 'Ok',
           })
-          .then(() => {
-            window.location.reload();
+          .then((res) => {
+
+            console.log(res);
           })
     })
     .catch(err => {
@@ -55,7 +56,7 @@ const AddUser = () => {
                 <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
                     Account settings
                 </h2>
-                <form>
+                <form  onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                         <div>
                         <Controller 
