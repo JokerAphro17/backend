@@ -32,7 +32,7 @@ class AuthController extends BaseController
         try{
           $loginData = $request->only('email', 'password');
             if(!auth()->attempt($loginData)){
-                return $this->sendError('Email ou mot de passe incorrect.', [],401);
+                return $this->sendError('Email ou mot de passe incorrect.', [],400);
             }
             $user = Auth::user();
             if(!$user->email_verified_at){
@@ -184,6 +184,10 @@ class AuthController extends BaseController
         } catch (\Trowable $th) {
             return $this->sendError('Erreur lors de la déconnexion.', $th->getMessage(), 500);
     }
+    }
+    public function me()
+    {
+        return $this->sendResponse(auth()->user(), 'Utilisateur connecté.');
     }
 }
 

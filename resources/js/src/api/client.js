@@ -12,10 +12,10 @@ const HTTP_CLIENT = axios.create({
 
 HTTP_CLIENT.interceptors.request.use(
   config => {
-  
     const handlerData = HANDLER_STORAGE.GET(USER_SESSION, 'object');
     const user = handlerData?.data ?? null;
     if (user?.token) {
+      console.log('token', user.token);
         config.headers.authorization = `${TOKEN_TYPE} ${user?.token}`
     }
     return config;
@@ -33,7 +33,7 @@ HTTP_CLIENT.interceptors.response.use(
     const {response} = error;
     if(response && response.status === 401) {
         HANDLER_STORAGE.REMOVE(USER_SESSION);
-        location.replace('auth/login')
+        location.replace('/auth/login')
     }
     return Promise.reject(error);
   },
@@ -44,9 +44,9 @@ export default HTTP_CLIENT;
 export const handlingErrors = error => {
   if (error.response) {
     const dataResponse = error.response.data;
-    const message = dataResponse?.errors;
+    const message = dataResponse?.error;
     if(dataResponse) {
-        const errors = dataResponse?.errors;
+        const errors = dataResponse?.error;
         return errors
     }
     return message

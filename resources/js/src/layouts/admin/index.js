@@ -7,12 +7,11 @@ const AdminLayout = () => {
         <>
             {/* testtttt */}
 
-            <div class="flex  w-full h-screen  text-gray-700">
-                <div class="flex w-full max-w-full">
+            <div className="flex  w-full h-screen  text-gray-700">
+                <div className="flex w-full max-w-full">
                     <Sidebar />
-                    <div class=" border-l border-r border-gray-300 w-full">
+                    <div className=" border-l border-r border-gray-300 w-full">
                         <Navbar />
-
                         <Outlet />
                     </div>
                 </div>
