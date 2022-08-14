@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../../../api/request";
-import axios from "axios"; 
+import BasicPagination from "../../../../components/paginate";
+import { userListePaginate } from "../../../../api/request";
 
 const All = () => {
     const [users, setUsers] = useState([]);
+    const [page , setPage] = useState(1);
 
+
+    const paginate = (param) => {
+        userListePaginate(param).then((response) => {
+            setUsers(response.data?.data?.data);
+            const total = response.data?.data?.total;
+            total % 5 === 0 ? setPage(parseInt(total/5)) : setPage(parseInt(total / 5) + 1);
+            console.log(total);
+            console.log(page);
+        }).catch((error) => {
+            console.log(error);
+        }
+        );
+    }
     useEffect(() => {
       
-        const User = async () => {
-            const response = await getUsers();
-            setUsers(response.data.data);
-            console.log(response.data.data);
-        }
-        User();
+        paginate(1);
+       
         
     },[]);
-
-
-
-
 
     const navigate = useNavigate();
     return (
@@ -39,7 +46,7 @@ const All = () => {
                                         }}
                                         className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                     >
-                                        Add User
+                                        Add User{console.log(page)}
                                     </button>
                                 </div>
                             </div>
@@ -98,15 +105,21 @@ const All = () => {
                                                 </td>
                                             </tr>
                                             ))}
-                                           
-
-                                        
-                                        
-                                           
                                         </tbody>
+                                        <tfoot>
+                                            <tr  >
+                                                <td className="float-right" colSpan="6" 
+                                                
+                                                >
+                                                    <BasicPagination
+                                                    page={page} 
+                                                paginate={paginate}/>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
-                            </div>{" "}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,5 +127,6 @@ const All = () => {
         </>
     );
 };
+
 
 export default All;

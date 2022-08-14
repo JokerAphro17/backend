@@ -48,6 +48,7 @@ class AuthController extends BaseController
                 'email' => $user->email,
                 'telephone' => $user->telephone,
                 'role' => $user->role,
+                'avatar' => $user->avatar,
                 'token' => $token,
             ];
              return $this->sendResponse($userProfile, 'Utilisateur authentifié avec succès.');
@@ -189,6 +190,27 @@ class AuthController extends BaseController
     {
         return $this->sendResponse(auth()->user(), 'Utilisateur connecté.');
     }
+    public function changePhoto(Request $request){
+        $vaildator = Validator::make($request->all(), [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        if ($vaildator->fails()) {
+            return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
+        }
+        try{
+           $input = $request->all();
+            $user = auth()->user();
+            if($request->hasFile('photo')){
+                $photo = $input['photo']->store('public/photos');
+                $user ->avatar = $photo;   
+                return $this->sendResponse($user, 'Photo de profil modifiée avec succès.');
+            }
+            
+        } catch (\Trowable $th) {
+            return $this->sendError('Erreur lors de la modification de la photo de profil.', $th->getMessage(), 500);
+        }
+    }
+    
 }
 
 

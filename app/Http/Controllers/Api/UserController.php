@@ -120,8 +120,18 @@ class UserController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( )
     {
         //
+    }
+    public function userListePaginate($page)
+    {   
+        try{
+            $user = User::paginate(5, ['*'], 'page', $page);
+            return $this->sendResponse($user, 'Utilisateurs envoyé avec success.');
+        }
+        catch(\Exception $e){
+            return $this->sendError('Application crash.', $e->getMessage());
+        }
     }
 }

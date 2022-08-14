@@ -67,4 +67,17 @@ export const addAdmin = (params) =>
             });
     }
     )
+export const userListePaginate = (params) =>
+    new Promise((resolve, reject) => {
+        HTTP_CLIENT.get(`users/page/${params}`)
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                const message = handlingErrors(error);
+                reject(message);
+            });
+    }
+    )
+
      
