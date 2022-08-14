@@ -36,15 +36,8 @@ const Login = () => {
                 <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
                     Brand
                 </h1>
-<<<<<<< HEAD
-               
-                <form onSubmit={handleSubmit(data => console.log(data))}>
-                    <div class="mt-8">
-                    
-=======
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-8">
->>>>>>> 8fa90216afe57e4c858ac287def079fc828ca644
                         <Controller 
                             control={control}
                             name="email"
@@ -61,11 +54,6 @@ const Login = () => {
 
                                     helperText={errors.email && errors.email.message}
                                 />)}
-<<<<<<< HEAD
-                               
-=======
-
->>>>>>> 8fa90216afe57e4c858ac287def079fc828ca644
                                 rules={{ required: "Email est requis",
                                     pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Adress email invalide" },
                                 }}
