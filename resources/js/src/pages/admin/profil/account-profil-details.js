@@ -16,7 +16,13 @@ import HANDLER_STORAGE from '../../../data';
 import { USER_SESSION } from '../../../utilities/constant';
 
 export const AccountProfileDetails = (props) => {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    telephone: '',
+
+  })
   const [loading, setLoading] = useState(false)
   useEffect(() => {
    const user = HANDLER_STORAGE.GET(USER_SESSION, 'object')
@@ -67,16 +73,21 @@ export const AccountProfileDetails = (props) => {
             ><Controller 
                 control={control}
                 name="firstName"
-                defaultValue={user.firstName}
+                defaultValue={user.firstname}
                 rules={{ required: true }}
                 render={({field:{ onChange, onBlur, value }}) => (
                   <TextField
                     fullWidth
                     label="Prenom"
-                    onChange={onChange}
+                    onChange={
+                      (event) => {
+                        onChange(event)
+                        setUser({...user, firstname: event.target.value})
+                      }
+                    }
                     onBlur={onBlur}
-                    value={value || "hjbhfg"}
-                    error = {errors.firstName}
+                    value={user.firstname}
+                    error = {!!errors.firstname}
                     helperText = {errors.firstName && errors.firstName.message}
                     variant="outlined"
                   />
@@ -92,18 +103,24 @@ export const AccountProfileDetails = (props) => {
             >
               <Controller
                 control={control}
-                name="lastName" 
-                defaultValue={user.lastName}  
+                name="lastName"   
                 rules={{ required: true }}
                 render={({field:{ onChange, onBlur, value }}) => (
                     <TextField
                       fullWidth
                       label="Nom"
-                      onChange={onChange}
+                      onChange={
+                        (eve) => {
+                          setUser({
+                            ...user,
+                            lastname: eve.target.value
+                          })
+                        }
+                      }
                       onBlur={onBlur}
-                      value={value || ""}
+                      value={user.lastname}
                       variant="outlined"
-                      error = {errors.lastName}
+                      error = {!!errors.lastname}
                       helperText = {errors.lastName && errors.lastName.message}
                     />
                   )}
@@ -117,21 +134,28 @@ export const AccountProfileDetails = (props) => {
               <Controller
                 control={control}
                 name="email"
-                defaultValue={user.email}
-                rules={{ required: "ce champs est obligatoire", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Adress email invalide" } }}
                 render={({field:{ onChange, onBlur, value }}) => (
                   <TextField
-                    fullWidth
+                  fullWidth
                     label="Email Address"
                     name="email"
-                    onChange={onChange}
+                    onChange={
+                      (eve) => {
+                        setUser({
+                          ...user,
+                          email: eve.target.value
+                        })
+                        
+                      }
+                    }
                     onBlur={onBlur}
-                    value={value || ""}
+                    value={user.email}
                     variant="outlined" 
-                    error = {errors.email}
+                    error = {!!errors.email}
                     helperText = {errors.email && errors.email.message}
-                  />
-                )}
+                    />
+                    )}
+                rules={{ required: "ce champs est obligatoire" }}
               />
             </Grid>
             <Grid
@@ -141,19 +165,25 @@ export const AccountProfileDetails = (props) => {
             ><Controller
                 control={control}
                 name="telephone"
-                defaultValue={user.phone}
+                defaultValue={user.telephone}
                 rules={{ required: true, }}
                 render={({field:{ onChange, onBlur, value }}) => (
                   <TextField
                     fullWidth
                     label="Numero de telephone"
-                    name="phone"
-                    onChange={onChange}
-                    type="number"
+                    onChange={
+                      (eve) => {
+                        setUser({
+                          ...user,
+                          telephone: eve.target.value
+                        })
+                      }
+                    }
+                    
                     onBlur={onBlur}
-                    value={value|| ""}
+                    value={user.telephone}
                     variant="outlined"
-                    error = {errors.telephone}
+                    error = {!!errors.telephone}
                     helperText = {errors.telephone && errors.telephone.message}
                   />
                 )}
