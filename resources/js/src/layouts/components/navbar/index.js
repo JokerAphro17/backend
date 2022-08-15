@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import ProfileDropDown from "../avatar";
 
 const Navbar = () => {
     return ( 
@@ -40,12 +41,12 @@ const Navbar = () => {
                 <div className="items-center md:flex">
                     
 
-                    <div className="flex items-center py-2 -mx-1 md:mx-0">
+                    {/* <div className="flex items-center py-2 -mx-1 md:mx-0">
                         <a className="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto" href="#">Login</a>
                         <NavLink to="/profile" className="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto" href="#">Join free</NavLink>
-                    </div>
+                    </div> */}
 
-                   
+                   <ProfileDropDown />
                     
                 </div>
             </div>
