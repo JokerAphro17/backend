@@ -134,4 +134,6 @@ class UserController extends BaseController
             return $this->sendError('Application crash.', $e->getMessage());
         }
     }
+
+    
 }

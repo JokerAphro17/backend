@@ -192,20 +192,22 @@ class AuthController extends BaseController
     }
     public function changePhoto(Request $request){
         $vaildator = Validator::make($request->all(), [
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'required'
         ]);
         if ($vaildator->fails()) {
-            return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
+            return $this->sendError('Erreur de validations des champs.', $vaildator->errors(),400);
         }
         try{
            $input = $request->all();
             $user = auth()->user();
-            if($request->hasFile('photo')){
-                $photo = $input['photo']->store('public/photos');
-                $user ->avatar = $photo;   
+            if($request->hasFile('avatar')){
+                $avatar = $input['avatar']->store('public/avatar');
+              
+                $user->avatar = $avatar;
+                
                 return $this->sendResponse($user, 'Photo de profil modifiée avec succès.');
             }
-            
+            return $this->sendError('Erreur lors de la modification de la photo de profil.', [], 500);
         } catch (\Trowable $th) {
             return $this->sendError('Erreur lors de la modification de la photo de profil.', $th->getMessage(), 500);
         }

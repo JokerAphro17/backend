@@ -5,7 +5,9 @@ import HTTP_CLIENT, { handlingErrors } from "./client";
 const FILE_HEADERS = {
     headers: { "Content-Type": "multipart/form-data" },
 };
-
+const FORM_DATA_HEADERS = {
+    headers: { "Content-Type": "application/json" },
+};
 export const signinUsers = (params) =>
     new Promise((resolve, reject) => {
         HTTP_CLIENT.post("signin", params)
@@ -67,17 +69,29 @@ export const addAdmin = (params) =>
             });
     }
     )
-export const userListePaginate = (params) =>
-    new Promise((resolve, reject) => {
-        HTTP_CLIENT.get(`users/page/${params}`)
-            .then((response) => {
-                resolve(response);
-            })
-            .catch((error) => {
-                const message = handlingErrors(error);
-                reject(message);
-            });
-    }
-    )
-
-     
+    export const userListePaginate = (params) =>
+        new Promise((resolve, reject) => {
+            HTTP_CLIENT.get(`users/page/${params}`)
+                .then((response) => {
+                    resolve(response);
+                })
+                .catch((error) => {
+                    const message = handlingErrors(error);
+                    reject(message);
+                });
+        }
+        )
+    export const changePhoto = (params) =>
+        new Promise((resolve, reject) => {
+            HTTP_CLIENT.post(`users/change/photo`, params, FILE_HEADERS)
+                .then((response) => {
+                    resolve(response);
+                })
+                .catch((error) => {
+                    const message = handlingErrors(error);
+                    reject(message);
+                });
+        }
+        )
+    
+    
