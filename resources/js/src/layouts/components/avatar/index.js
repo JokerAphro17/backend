@@ -1,6 +1,8 @@
 import { Tooltip } from "@mui/material";
 import { useEffect, useRef, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
+import { API_STORAGE_URL } from "../../../utilities/constant";
+import HANDLER_STORAGE from './../../../data/index';
 
 
 const ProfileDropDown = (props) => {
@@ -17,7 +19,6 @@ const ProfileDropDown = (props) => {
         
     
     useEffect(() => {
-       
         const handleDropDown = (e) => {
             if (!profileRef.current.contains(e.target)) setState(false)
         }
@@ -37,7 +38,7 @@ const ProfileDropDown = (props) => {
                     onClick={() => setState(!state)}
                 >
                     <img
-                        src="https://randomuser.me/api/portraits/men/46.jpg"
+                        src={`${API_STORAGE_URL}/${HANDLER_STORAGE.GET('USER_SESSION','object')?.data?.avatar}`}
                         className="w-full h-full rounded-full"
                     />
                 </button>

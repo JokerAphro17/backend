@@ -204,7 +204,7 @@ class AuthController extends BaseController
                 $avatar = $input['avatar']->store('public/avatar');
               
                 $user->avatar = $avatar;
-                
+                $user->save();
                 return $this->sendResponse($user, 'Photo de profil modifiée avec succès.');
             }
             return $this->sendError('Erreur lors de la modification de la photo de profil.', [], 500);

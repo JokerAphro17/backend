@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../utilities/hook/useAuth";
 import { signinUsers } from "../../../api/request";
+import HANDLER_STORAGE from "../../../data";
+import Logo from "../../../components/logo";
 const Login = () => {
     const navigate = useNavigate();
     const auth = useAuth(); 
@@ -34,7 +36,7 @@ const Login = () => {
         <>
             <div className="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800 mt-8 border-2 border-gray-200">
                 <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
-                    Brand
+                    <Logo />
                 </h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-8">

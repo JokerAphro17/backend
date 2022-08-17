@@ -26,8 +26,8 @@ const AccountProfile = (props) => {
             .then(response => {
                 const user = response.data?.data;
                 
-                const data =  HANDLER_STORAGE.GET('USER_SESSION','object').data;
-                data.avatar = user.avatar;
+                const data =  HANDLER_STORAGE.GET('USER_SESSION','object')?.data;
+                data.avatar = user?.avatar;
                 HANDLER_STORAGE.REMOVE('USER_SESSION')
                 HANDLER_STORAGE.SET('USER_SESSION', data,'object')
                 setFile(null)
@@ -50,7 +50,7 @@ const AccountProfile = (props) => {
                         }}
                     >
                         <Avatar
-                            src={file ? URL.createObjectURL(file) : `${API_STORAGE_URL}/${HANDLER_STORAGE.GET('USER_SESSION','object').data.avatar}`}
+                            src={file ? URL.createObjectURL(file) : `${API_STORAGE_URL}/${HANDLER_STORAGE.GET('USER_SESSION','object')?.data?.avatar}`}
                         
                             sx={{
                                 height: 64,

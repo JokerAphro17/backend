@@ -12,7 +12,7 @@ const Navbar = () => {
             <div className="flex flex-col md:flex-row md:justify-between md:items-center">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                        <a className="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">Brand</a>
+                        <a className="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">AWALLET</a>
 
                         
                         <div className="hidden mx-10 md:block">
@@ -39,15 +39,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="items-center md:flex">
-                    
-
-                    {/* <div className="flex items-center py-2 -mx-1 md:mx-0">
-                        <a className="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto" href="#">Login</a>
-                        <NavLink to="/profile" className="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto" href="#">Join free</NavLink>
-                    </div> */}
-
-                   <ProfileDropDown />
-                    
+                   <ProfileDropDown />        
                 </div>
             </div>
 
