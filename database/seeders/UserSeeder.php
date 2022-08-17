@@ -20,12 +20,12 @@ class UserSeeder extends Seeder
 
         $users = [
             'uuid' => Str::uuid(),
-            'lastname' => $this->faker->lastName,
-            'firstname' => $this->faker->firstName,
-            'telephone' => $this->faker->phoneNumber,
-            'avatar' => $this->faker->imageUrl(),
-            'email' => $this->faker->unique()->safeEmail,
-            'role' => rand(0,1) ? 'user' : 'admin',
+            'lastname' => 'Ilboudo'
+            'firstname' => 'Souleymane'
+            'telephone' => '+226 55993984',
+            'avatar' => ''
+            'email' => 'ilboudosouleymane4@gmail.com'
+            'role' => 'superadmin'
             'code_verified' => null,
             'email_verified_at' => now(),
             'last_login' => now(),
