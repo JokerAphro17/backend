@@ -37,6 +37,6 @@ class UserSeeder extends Seeder
         ];
         
                
-                Uszer::create($users);
+                User::create($users);
     }
 }
