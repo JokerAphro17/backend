@@ -20,12 +20,12 @@ class UserSeeder extends Seeder
 
         $users = [
             'uuid' => Str::uuid(),
-            'lastname' => 'Ilboudo'
-            'firstname' => 'Souleymane'
+            'lastname' => 'Ilboudo',
+            'firstname' => 'Souleymane',
             'telephone' => '+226 55993984',
-            'avatar' => ''
-            'email' => 'ilboudosouleymane4@gmail.com'
-            'role' => 'superadmin'
+            'avatar' => '',
+            'email' => 'ilboudosouleymane4@gmail.com',
+            'role' => 'superadmin',
             'code_verified' => null,
             'email_verified_at' => now(),
             'last_login' => now(),
