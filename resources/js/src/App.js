@@ -1,19 +1,14 @@
 import React from "react";
-import AdminRoute from "./router/admin";
-import { Routes, Route } from "react-router-dom";
-import AuthRoute from "./router/auth";
-import AuthGuard from "./helpers/authguard";
+import RenderRoute from "./router/RenderRoute";
 
 // import { AuthContext } from "./utilities/context/authContext";
 
 const App = () => {
+    // const auth = useContext(AuthContext);
     return (
-        <Routes>
-            <Route path="/*" element={ 
-                <AdminRoute />
-            } />
-            <Route path="/auth/*" element={<AuthRoute />} />
-        </Routes>
+        <>
+            <RenderRoute />
+        </>
     );
 };
 

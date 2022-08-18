@@ -11,7 +11,7 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { getUser } from '../../../api/request';
+import { getUser, updateUser } from '../../../api/request';
 import HANDLER_STORAGE from '../../../data';
 import { USER_SESSION } from '../../../utilities/constant';
 import Swal from 'sweetalert2';
@@ -62,6 +62,7 @@ useEffect(() => {
       updateUser(user.data?.uuid, data)
         .then(response => {
           setLoading(false)
+          HANDLER_STORAGE.SET(USER_SESSION, response.data?.data, 'object')
           Swal.fire({
             title: 'Success',
             text: 'Votre profil a été mis à jour',
