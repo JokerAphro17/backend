@@ -14,6 +14,7 @@ import {
 import { getUser } from '../../../api/request';
 import HANDLER_STORAGE from '../../../data';
 import { USER_SESSION } from '../../../utilities/constant';
+import Swal from 'sweetalert2';
 
 export const AccountProfileDetails = (props) => {
   const [user, setUser] = useState({
@@ -23,8 +24,8 @@ export const AccountProfileDetails = (props) => {
     telephone: '',
 
   })
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
+  const [loading, setLoading] = useState(false);
+useEffect(() => {
    const user = HANDLER_STORAGE.GET(USER_SESSION, 'object')
    setLoading(true)
     if(user.data?.uuid) {
@@ -45,9 +46,40 @@ export const AccountProfileDetails = (props) => {
 
   const { control, handleSubmit, formState: { errors }, } = useForm();
 
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = (data) => {
+    if(!data.firstname || !data.lastname || !data.email || !data.telephone) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Toute les champs sont obligatoires',
+        icon: 'error',
+        timer: 2000
+      })
+      return false ;
+    }
+    setLoading(true)
+    const user = HANDLER_STORAGE.GET(USER_SESSION, 'object')
+    if(user.data?.uuid) {
+      updateUser(user.data?.uuid, data)
+        .then(response => {
+          setLoading(false)
+          Swal.fire({
+            title: 'Success',
+            text: 'Votre profil a été mis à jour',
+            icon: 'success',
+            timer: 2000
+          })
+        }
+        )}
+    else {
+      setLoading(false)
+      location.replace('/auth/login')
+    }
   }
+
+
+    
+
+
 
   return (
     
@@ -72,10 +104,11 @@ export const AccountProfileDetails = (props) => {
               xs={12}
             ><Controller 
                 control={control}
-                name="firstName"
-                defaultValue={user.firstname}
-                rules={{ required: true }}
-                render={({field:{ onChange, onBlur, value }}) => (
+                name="firstname"
+                
+                
+                render={({field:{ onChange, onBlur}}) => (
+                  
                   <TextField
                     fullWidth
                     label="Prenom"
@@ -86,10 +119,14 @@ export const AccountProfileDetails = (props) => {
                       }
                     }
                     onBlur={onBlur}
-                    value={user.firstname}
+                    
+                    value={
+                      user.firstname
+                    }
                     error = {!!errors.firstname}
                     helperText = {errors.firstName && errors.firstName.message}
                     variant="outlined"
+
                   />
                 )}
               />
@@ -103,9 +140,8 @@ export const AccountProfileDetails = (props) => {
             >
               <Controller
                 control={control}
-                name="lastName"   
-                rules={{ required: true }}
-                render={({field:{ onChange, onBlur, value }}) => (
+                name="lastname"   
+                render={({field:{ onChange, onBlur}}) => (
                     <TextField
                       fullWidth
                       label="Nom"
@@ -155,7 +191,7 @@ export const AccountProfileDetails = (props) => {
                     helperText = {errors.email && errors.email.message}
                     />
                     )}
-                rules={{ required: "ce champs est obligatoire" }}
+                
               />
             </Grid>
             <Grid
@@ -166,7 +202,6 @@ export const AccountProfileDetails = (props) => {
                 control={control}
                 name="telephone"
                 defaultValue={user.telephone}
-                rules={{ required: true, }}
                 render={({field:{ onChange, onBlur, value }}) => (
                   <TextField
                     fullWidth
@@ -181,7 +216,7 @@ export const AccountProfileDetails = (props) => {
                     }
                     
                     onBlur={onBlur}
-                    value={user.telephone}
+                    value={user.telephone}  
                     variant="outlined"
                     error = {!!errors.telephone}
                     helperText = {errors.telephone && errors.telephone.message}
@@ -200,7 +235,10 @@ export const AccountProfileDetails = (props) => {
           }}
         >
           <Button
-            type="submit"
+            onClick={() => {
+              onSubmit(user)
+            }
+            }
             color="primary"
             variant="contained"
           >

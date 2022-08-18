@@ -93,5 +93,17 @@ export const addAdmin = (params) =>
                 });
         }
         )
+    export const updateUser = (uuid, params) =>
+        new Promise((resolve, reject) => {
+            HTTP_CLIENT.put(`users/${uuid}`, params, FORM_DATA_HEADERS)
+                .then((response) => {
+                    resolve(response);
+                }).catch((error) => {
+                    const message = handlingErrors(error);
+                    reject(message);
+                }
+                );
+        }
+        );
     
     

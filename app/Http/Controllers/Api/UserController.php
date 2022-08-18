@@ -42,8 +42,7 @@ class UserController extends BaseController
             'lastname' => 'required',
             'firstname' => 'required',
             'email' => 'required|email|unique:users',
-            //'role' => 'required|in:superadmin,admin',
-            //'uuid_admin' => 'required|exists:users,uuid', 
+            
         ]);
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors(),400);
@@ -96,16 +95,12 @@ class UserController extends BaseController
             'lastname' => 'required',
             'firstname' => 'required',
             'email' => 'required|email',
-            'role' => 'required|in:admin,superadmin',        ]);
+            'role' => 'nullable|in:admin,superadmin', ]);
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
         try {
             $input = $request->all();
-            $admin = $request->user();
-            if ($admin->role =='user' && $user->role == 'superadmin') {
-                return $this->sendError('Vous n\'avez pas les droits pour modifier un utilisateur.');
-            }
             $user->update($input);
             return $this->sendResponse($user, 'Utilisateur modifié avec success.');
         } catch (\Exception $e) {
