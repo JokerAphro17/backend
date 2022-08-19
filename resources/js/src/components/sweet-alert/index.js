@@ -34,6 +34,30 @@ export const alertNotification = (
     });
 };
 
+export const alertConfirmation = (
+    message = "",
+    callback = null,
+    confirmBtn = "Je confirme",
+    title = "Confirmation",
+) => {
+    Swal.fire({
+        title: title,
+        text: message,
+        icon: 'warning',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        confirmButtonText: confirmBtn,
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (callback) {
+            callback({
+                isConfirmed: result?.isConfirmed,
+                isDenied: result?.isDenied,
+            });
+        }
+    });
+};
+
 export const alertConfirm = () => {};
 
 export const testAlert = (isLoading) => {

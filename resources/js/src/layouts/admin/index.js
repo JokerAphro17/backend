@@ -1,21 +1,15 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "../components/navbar";
-import Sidebar from "../components/sidebar/index";
+import React from "react";
+import useApp from "../../utilities/hook/useApp";
+import ContainerBackEnd, { ConainerBackOffice } from "../components/container";
+import Footer from "../components/footer";
+import Bar from "../components/sidemenu/Bar";
+import menuAdmin from "./menu";
 
-const AdminLayout = () => {
+const AdminLayout = (props) => {
     return (
         <>
-            {/* testtttt */}
-
-            <div className="flex  w-full h-screen  text-gray-700">
-                <div className="flex w-full max-w-full">
-                    <Sidebar />
-                    <div className=" border-l border-r border-gray-300 w-full">
-                        <Navbar />
-                        <Outlet />
-                    </div>
-                </div>
-            </div>
+            <ConainerBackOffice {...props} menuElements={menuAdmin} />
+            <Footer />
         </>
     );
 };

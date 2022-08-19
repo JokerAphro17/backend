@@ -1,17 +1,17 @@
 // authContext
 import React, { createContext, useState } from "react";
 import HANDLER_STORAGE from "../../data";
-import { USER_SESSION } from "../constant";
+import { USER_SESSION } from "../constant/app.constant";
 
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
     const userData = HANDLER_STORAGE.GET(USER_SESSION, 'object');
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(userData?.data ?? null);
 
     const signin = (newUser, callback) => {
         setUser(newUser);
-         HANDLER_STORAGE.SET(USER_SESSION, newUser, 'object');
+        HANDLER_STORAGE.SET(USER_SESSION, newUser, 'object')
         callback();
     };
 

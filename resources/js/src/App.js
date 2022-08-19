@@ -1,18 +1,25 @@
 import React from "react";
+import MainLoadable from "./components/loadable";
+import {AuthProvider} from './utilities/context/authContext'
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter } from "react-router-dom";
+import { RequestsProvider } from "./utilities/context/requestsContext";
+import { renderRoutes } from "./routers/renderRoutes";
 import routes from "./routers/routes";
 
-// import { AuthContext } from "./utilities/context/authContext";
-import { renderRoutes } from './routers/renderRoutes';
-
-
-
 const App = () => {
-    // const auth = useContext(AuthContext);
     return (
-        <>
-            renderRoutes(routes)
-        </>
-    );
+        <AuthProvider>
+            <RequestsProvider>
+                <BrowserRouter>
+                    <MainLoadable>
+                        {renderRoutes(routes)}
+                        <ToastContainer />
+                    </MainLoadable>
+                </BrowserRouter>
+            </RequestsProvider>
+        </AuthProvider>
+    )
 };
 
 export default App;

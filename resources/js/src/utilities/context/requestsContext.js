@@ -1,7 +1,7 @@
 // RequestsContext
 import React, { createContext, useState } from "react";
 import HANDLER_STORAGE from "../../data";
-import { REQUESTS } from "../constant";
+import { REQUESTS } from "../constant/app.constant";
 
 const RequestsContext = createContext(null);
 

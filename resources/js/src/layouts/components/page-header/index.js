@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import HANDLER_STORAGE from "../../../data";
-import { USER_SESSION } from "../../../utilities/constant";
+import { USER_SESSION } from "../../../utilities/constant/app.constant";
 import formatItemName from "./formatItemName";
 
 const PageHeader = ({children, title}) => {
@@ -52,21 +52,6 @@ const PageHeader = ({children, title}) => {
                 </div>
                 <div className="ml-auto pageheader-btn">
                     {children}
-                    {/* <a
-                        href="#"
-                        className="btn btn-primary btn-icon text-white mr-2"
-                    >
-                        <span>
-                            <i className="fe fe-shopping-cart"></i>
-                        </span>{" "}
-                        Add Order
-                    </a>
-                    <a href="#" className="btn btn-secondary btn-icon text-white">
-                        <span>
-                            <i className="fe fe-plus"></i>
-                        </span>{" "}
-                        Add User
-                    </a> */}
                 </div>
             </div>
         </Fragment>

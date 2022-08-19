@@ -1,6 +1,9 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import AdminLayout from '../../layouts/admin';
+import BlankLayout from '../../layouts/blank';
+import ClientLayout from '../../layouts/client';
+import WebsiteLayout from '../../layouts/website';
 import useAuth from '../../utilities/hook/useAuth';
 import { useAuthorized } from '../hook/useAuthorized';
 

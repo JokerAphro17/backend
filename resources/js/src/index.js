@@ -1,20 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
-import { AuthProvider } from "./utilities/context/authContext";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { AppProvider } from './utilities/context/appContext';
+import './index.css';
 
-const rootTag = document.getElementById("root");
+const rootTag = document.getElementById('root');
 
-if (rootTag) {
+if(rootTag) {
     const root = ReactDOM.createRoot(rootTag);
     root.render(
         <React.StrictMode>
-            <AuthProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </AuthProvider>
+            <AppProvider>
+                <App />
+            </AppProvider>
         </React.StrictMode>
     );
 }
