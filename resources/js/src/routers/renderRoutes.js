@@ -2,11 +2,6 @@
 
 import { Fragment } from "react";
 import { Route, Routes } from "react-router-dom";
-import HANDLER_STORAGE from "../data";
-import AdminLayout from "../layouts/admin";
-import BlankLayout from "../layouts/blank";
-import ClientLayout from "../layouts/client";
-import WebsiteLayout from "../layouts/website";
 import Render from "./components/Render";
 
 export const renderRoutes = (routes) => {

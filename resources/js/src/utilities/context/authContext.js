@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
 
     const signin = (newUser, callback) => {
         setUser(newUser);
-         HANDLER_STORAGE.SET(USER_SESSION, newUser, 'object') 
+         HANDLER_STORAGE.SET(USER_SESSION, newUser, 'object');
         callback();
     };
 

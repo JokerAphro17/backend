@@ -18,7 +18,7 @@ function NotFoundPage(props) {
 							<div className="col-lg-6 col-xl-6 col-md-6 d-block mx-auto">
 								<div className="">
 									<div className="">
-										<div className="display-1 t mb-5">400</div>
+										<div className="display-1 t mb-5">404</div>
 										<h1 className="h2   mb-3">Ressource non trouveé</h1>
 										<p className="h4 font-weight-normal mb-7 leading-normal">Oops!!!! vous avez essayé d'accéder à une page qui n'est pas disponible</p>
 										<button className="btn btn-primary" onClick={() => navigate(-1)}>

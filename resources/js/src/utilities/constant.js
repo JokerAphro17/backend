@@ -1,6 +1,6 @@
 export const TOKEN_TYPE = 'Bearer';
 export const USER_SESSION = "USER_SESSION";
-
+export const REQUESTS = "REQUESTS";
 
 export const API_DOMAIN = "https://african-wallet.herokuapp.com";
 
