@@ -42,7 +42,7 @@ const ProfileConnecte = (props) => {
                         {userInfo?.avatar ? (
                             <img src={`${API_STORAGE_URL}/${userInfo.avatar}`} />
                         ) : (
-                            <IconProfile className="avatar text-dark mr-xl-3 profile-user brround cover-image" />
+                            <IconProfile className="avatar text-dark mr-xl-3  profile-user runded-full cover-image" />
                         )}
                     </span>
                     <div className="text-center mt-1 d-none d-xl-block">

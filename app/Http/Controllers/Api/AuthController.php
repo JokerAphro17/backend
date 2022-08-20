@@ -211,6 +211,8 @@ class AuthController extends BaseController
         } catch (\Trowable $th) {
             return $this->sendError('Erreur lors de la modification de la photo de profil.', $th->getMessage(), 500);
         }
+
+        
     }
     
 }

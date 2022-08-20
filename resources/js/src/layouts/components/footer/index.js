@@ -7,7 +7,7 @@ const Footer = (props) => {
             <Container>
                 <div className="row align-items-center flex-row-reverse">
                     <div className="col-md-12 col-sm-12 text-center">
-                        Copyright © 2020 <a href="#">Yoha</a>. Designed by <a href="#"> Spruko Technologies Pvt.Ltd </a> All rights reserved.
+                        Copyright © 2021 <a href="#">Tech_Joker</a>. Designed by <a href="#"> Joker </a> All rights reserved.
                     </div>
                 </div>
             </Container>

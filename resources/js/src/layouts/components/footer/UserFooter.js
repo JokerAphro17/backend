@@ -59,7 +59,7 @@ const UserFooter = (props) => {
                 <Container>
                     <Row>
                         <Col xl={8} lg={12} md={12} className="col-xl-8 col-lg-12 col-md-12 footer1">
-                            Copyright © <a href="https://www.sggcm.gov.bf/">SGG-CM</a> 2022. Réaliser par <a href="https://www.switch-maker.com/">Switch Maker</a>
+                            Copyright © <a href="">AFRICAN WALLET</a> 2022. Réaliser par <a href="">Tech_Joker</a>
                         </Col>
                         <Col xl={4} lg={12} md={12} className="ml-auto text-right">
                             <ul className="footer-social-list ">

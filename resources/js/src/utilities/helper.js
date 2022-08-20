@@ -13,6 +13,7 @@ export const roleToShow = (role) => {
     }
 }
 
+
 export const roleToSave = (role) => {
     switch (role) {
         case 'gestionnaire':
@@ -27,6 +28,8 @@ export const roleToSave = (role) => {
             return 'user';
     }
 }
+
+
 
 
 export const getNumberPage = (tables = [], perPage = 10) => {

@@ -10,12 +10,12 @@ const formatItemName = (name) => {
             return 'administrateur';
         case 'admins':
             return 'administrateurs';
+        case 'superadmin':
+            return 'super administrateur';
         case 'add':
             return 'ajout';
         case 'edit':
             return 'édition';
-        case 'newspapers':
-            return 'journaux';
         case 'show':
             return 'détail';
         case 'subscription':

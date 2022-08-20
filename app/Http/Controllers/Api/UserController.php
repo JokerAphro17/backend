@@ -97,7 +97,7 @@ class UserController extends BaseController
             'email' => 'required|email',
             'role' => 'nullable|in:admin,superadmin', ]);
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return $this->sendError('Validation Error.', $validator->errors(),400);
         }
         try {
             $input = $request->all();
@@ -122,11 +122,22 @@ class UserController extends BaseController
     public function userListePaginate($page)
     {   
         try{
-            $user = User::paginate(5, ['*'], 'page', $page);
+            $user = User::where('role','user')->paginate(10, ['*'], 'page', $page);
             return $this->sendResponse($user, 'Utilisateurs envoyé avec success.');
         }
         catch(\Exception $e){
             return $this->sendError('Application crash.', $e->getMessage());
         }
     }
+    public function adminListePaginate($page)
+    {   
+        try{
+            $user = User::where('role','!=','user')->paginate(10, ['*'], 'page', $page);
+            return $this->sendResponse($user, 'Utilisateurs envoyé avec success.');
+        }
+        catch(\Exception $e){
+            return $this->sendError('Application crash.', $e->getMessage());
+        }
+    }
+
 }

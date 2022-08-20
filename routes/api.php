@@ -32,5 +32,6 @@ Route::middleware('auth:api')->group(function () {
     route::get('/me', [AuthController::class, 'me']);
     Route::apiResource('/users' , UserController::class);
     Route::get('/users/page/{page}', [UserController::class, 'userListePaginate']);
+    Route::get('/admin/page/{page}', [UserController::class, 'adminListePaginate']);
     Route::post('/users/change/photo',[AuthController::class, 'changePhoto']);
 });

@@ -44,13 +44,13 @@ const otherRoutes = [
         path: "/accounts/profile",
         component: lazy(() => import(`../../pages/others/profile`)),
         layout: `${user?.role == 'user' ? 'Client' : 'Admin'}`,
-        permissions: [ROLES.ACCOUNTING, ROLES.ADMIN, ROLES.JOURNALIST, ROLES.OBSERVER, ROLES.USER],
+        permissions: [ROLES.SUPERADMIN, ROLES.ADMIN,ROLES.USER],
     },
     {
         path: "/accounts/access",
         component: lazy(() => import(`../../pages/others/profile-access`)),
         layout: `${user?.role == 'user' ? 'Client' : 'Admin'}`,
-        permissions: [ROLES.ACCOUNTING, ROLES.ADMIN, ROLES.JOURNALIST, ROLES.OBSERVER, ROLES.USER],
+        permissions: [ROLES.SUPERADMIN, ROLES.ADMIN,ROLES.USER],
     },
 ];
 

@@ -1,6 +1,7 @@
 // requeste and dispatch to redux
 
 import HTTP_CLIENT, { handlingErrors } from "./client";
+import HTTP_CLIENT_2 from "./client0auth";
 
 const FILE_HEADERS = {
     headers: { "Content-Type": "multipart/form-data" },
@@ -165,7 +166,7 @@ export const restrictionUserAccess = (uuid, params) =>
 
 export const fetchAccountAdmin = (page) =>
     new Promise((resolve, reject) => {
-        HTTP_CLIENT.get(`accounts/admins/page/${page}`)
+        HTTP_CLIENT.get(`admin/page/${page}`)
             .then((response) => {
                 resolve(response);
             })
@@ -177,7 +178,7 @@ export const fetchAccountAdmin = (page) =>
 
 export const fetchAccountUser = (page) =>
     new Promise((resolve, reject) => {
-        HTTP_CLIENT.get(`accounts/users/page/${page}`)
+        HTTP_CLIENT.get(`users/page/${page}`)
             .then((response) => {
                 resolve(response);
             })
@@ -330,6 +331,18 @@ export const updatedNewspaperInfo = (uuid, params) =>
 export const deletNewspaper = (uuid) =>
     new Promise((resolve, reject) => {
         HTTP_CLIENT.delete(`newspapers/${uuid}`)
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                const message = handlingErrors(error);
+                reject(message);
+            });
+    });
+
+export const fetchTwittes = () =>
+    new Promise((resolve, reject) => {
+        HTTP_CLIENT_2.get("tweets?ids=1261326399320715264,1278347468690915330")
             .then((response) => {
                 resolve(response);
             })

@@ -1,43 +1,45 @@
-import { IconArticles, IconGlobe, IconGroupUser, IconQuestion } from "../../components/icones";
+import Dashboard from '@mui/icons-material/Dashboard';
+import CurrencyExchange from '@mui/icons-material/CurrencyExchange';
 import { ROLES } from "../../utilities/constant/app.constant";
-
+import { IconQuestion,IconGroupUser} from '../../components/icones';
 const menuAdmin = [
     {
         id: 'dashbord',
-        icon: () => <IconGlobe className="side-menu__icon" />,
+        icon: () => <Dashboard className="side-menu__icon" />,
         title: 'Tableau de bord',
         exact: true,
         navLink: '/admins',
         permissions: [ROLES.ADMIN, ROLES.SUPERADMIN],
     },
     {
-        header: "Gestion des documents",
+        header: "Gestion des paiements",
         permissions: [ROLES.ADMIN, ROLES.SUPERADMIN],
         navItems: [
             {
-                id: 'newspapers',
-                icon: () => <IconArticles  className="side-menu__icon" />,
-                title: 'Journaux',
-                navLink: '/handlers/newspapers',
+                id: 'payments',
+                icon: () => <CurrencyExchange  className="side-menu__icon" />,
+                title: 'Paiements',
+                navLink: '/handlers/paiements',
                 exact: true,
             },
         ],
     },
     {
-        header: "Audiences",
-        permissions: [ROLES.ADMIN],
+        header: "News",
+        permissions: [ROLES.ADMIN, ROLES.SUPERADMIN],
         navItems: [
             {
-                id: 'abonnements',
-                icon: () => <IconQuestion  className="side-menu__icon" />,
-                title: 'Abonnements',
-                navLink: '/handlers/subscription',
+                id: 'news',
+                icon: () => <IconQuestion className="side-menu__icon" />,
+                title: 'News',
+                navLink: '/twittes',
                 exact: true,
             },
         ],
+    
     },
     {
-        header: "Configurations",
+        header: "Edition de compte",
         permissions: [ROLES.ADMIN, ROLES.SUPERADMIN],
         navItems: [
             {

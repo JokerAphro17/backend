@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import useAuth from '../../../utilities/hook/useAuth';
-import logo from '../../../assets/images/logo/armoiries.png'
+import logo from '../../../assets/images/logo/logo.png'
 import { ROLES } from '../../../utilities/constant/app.constant';
 
 const ItemNavigation = (props) => {
