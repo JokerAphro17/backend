@@ -1,5 +1,5 @@
 {
-    "name": "african/wallet",
+    "name": "awallet/awallet",
     "type": "project",
     "description": "Online wallet.",
     "keywords": ["crypto", "wallet"],

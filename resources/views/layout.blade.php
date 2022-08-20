@@ -8,12 +8,12 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{secure_asset('css/style.css')}}">
-        <link rel="stylesheet" href="{{secure_asset('css/custom.css')}}">
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     </head>
     <body>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v14.0" nonce="jX12J2oc"></script>
         <div id="root"></div>
-        <script src="{{ secure_asset('js/app.js') }}" defer></script>
+        <script src="{{asset('js/app.js') }}" defer></script>
     </body>
 </html>
