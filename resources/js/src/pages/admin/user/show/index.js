@@ -11,12 +11,15 @@ import moment from 'moment';
 import { alertClosed, alertPending } from '../../../../components/sweet-alert';
 import UserConfirmModal from '../components/UserConfirmModal';
 import HANDLER_STORAGE from '../../../../data';
+import { avatar } from '@material-tailwind/react';
 moment.locale('fr');
 
 const ShowUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const [formProfile, setFormProfile] = useState({});
+    const [formProfile, setFormProfile] = useState({
+        uuid: '',
+    });
     const [showModal, setShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [hasGenerate, setHasGenerate] = useState(false);
@@ -28,10 +31,11 @@ const ShowUser = () => {
     useEffect(() => {
         const {state} = location;
         if(state?.uuid) {
-            setFormProfile({
-                ...formProfile,
-                uuid: state.uuid,
-            })
+            
+            setFormProfile(
+                formProfile.uuid = state.uuid
+            )
+            console.log(formProfile)
         } else {
             navigate(-1)
         }
@@ -49,13 +53,10 @@ const ShowUser = () => {
         try {
             const response = await fetchInfoUser(formProfile.uuid);
             const data = response?.data?.data ?? null;
+            console.log(data)
             if (data) {
-                const _profile = {
-                    ...data,
-                    avatar: !data?.avatar ? {} : {preview: `${API_STORAGE_URL}/${avatar}`}
-                }
-                console.log('_profile :>> ', _profile);
-                setFormProfile(_profile);
+                data.avatar = `${API_STORAGE_URL}/${data?.avatar}`;
+                setFormProfile(data);
             }
             alertClosed();
             setIsLoading(false);

@@ -30,7 +30,7 @@ class ResetPasswordMail extends Mailable
     public function build()
     {
         return $this->subject('Réinitialisation du mot de passe')
-                    ->markdown('mail.reset-password-mail');
+                    ->markdown('mail.confirmation');
                     
     }
 }

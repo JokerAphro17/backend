@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController;
 
+ 
 class UserController extends BaseController
 {
     /**

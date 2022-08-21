@@ -21,7 +21,7 @@ Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('account/verify', [AuthController::class, 'verifyEmail']);
 Route::post('account/verify/resend', [AuthController::class, 'resendVerifyEmail']);
 Route::post('password/reset', [AuthController::class, 'resetPassword']);
-Route::post('password/change', [AuthController::class, 'changePassword']);
+Route::post('password/reset/token', [AuthController::class, 'changePassword']);
 
 
 Route::ApiResource('/coupons', CouponController::class);
@@ -34,4 +34,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/users/page/{page}', [UserController::class, 'userListePaginate']);
     Route::get('/admin/page/{page}', [UserController::class, 'adminListePaginate']);
     Route::post('/users/change/photo',[AuthController::class, 'changePhoto']);
+    Route::get('/signout', [AuthController::class, 'logout']);
 });

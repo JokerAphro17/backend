@@ -12,6 +12,6 @@ Réinitialiser votre mot de passe
 @endcomponent
 @endif
 Merci ,<br>
-L'equipe JOBF.
+L'equipe African Wallet
 {{ config('app.name') }}
 @endcomponent

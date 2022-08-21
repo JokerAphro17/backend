@@ -42,7 +42,8 @@ const ProfileConnecte = (props) => {
                         {userInfo?.avatar ? (
                             <img src={`${API_STORAGE_URL}/${userInfo.avatar}`} />
                         ) : (
-                            <IconProfile className="avatar text-dark mr-xl-3  profile-user runded-full cover-image" />
+                            <IconProfile className="avatar text-dark mr-xl-3  profile-user runded-full
+                             cover-image" />
                         )}
                     </span>
                     <div className="text-center mt-1 d-none d-xl-block">
@@ -57,22 +58,7 @@ const ProfileConnecte = (props) => {
                         <Link to={'/accounts/access'} className="dropdown-item" href="#">
                             <i className="dropdown-icon zmdi zmdi-edit"></i> Mes accès
                         </Link>
-                        {/* <a className="dropdown-item" href="#">
-                            <i className="dropdown-icon zmdi zmdi-edit"></i> Edit Profile
-                        </a> */}
-                        {/* <a className="dropdown-item" href="#">
-                            <i className="dropdown-icon  mdi mdi-settings"></i> Account Settings
-                        </a> */}
-                        {/* <a className="dropdown-item" href="#">
-                            <span className="float-right"></span>
-                            <i className="dropdown-icon mdi  mdi-message-outline"></i> Inbox
-                        </a> */}
-                        {/* <a className="dropdown-item" href="#">
-                            <i className="dropdown-icon mdi mdi-comment-check-outline"></i> Message
-                        </a> */}
-                        {/* <a className="dropdown-item" href="#">
-                            <i className="dropdown-icon mdi mdi-compass-outline"></i> Need help?
-                        </a> */}
+                       
                         <a href='#' onClick={logout} className="dropdown-item">
                             <i className="dropdown-icon mdi  mdi-logout-variant"></i> Deconnexion
                         </a>

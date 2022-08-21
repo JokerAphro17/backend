@@ -139,9 +139,10 @@ class AuthController extends BaseController
            $user=User::where('email', $request->email)->first();
            if(!$user){
                return $this->sendError('Email inconnu.');
-           }
+           }               
             $input=$request->all();
-            $input['token']=Str::random(5);
+            $input['token']=Str::random(200);
+            
             PasswordReset::create($input);
             Mail::to($user->email)->send(new ResetPasswordMail($input['token']));
             return $this->sendResponse($user, 'Un email de réinitialisation de mot de passe vous a été envoyé.');
@@ -150,27 +151,26 @@ class AuthController extends BaseController
         }
     }
 
-    public function resetPasswordConfirm(Request $request){
+    public function changePassword(Request $request){
         $vaildator = Validator::make($request->all(), [
             'token' => 'required',
-            'email' => 'required|email',
             'password' => 'required',
-            'password_confirmation' => 'required:same:password',
+            'cpassword' => 'required:same:password',
         ]);
         if ($vaildator->fails()) {
             return $this->sendError('Erreur de validations des champs.', $vaildator->errors());
         }
         try{
-           $passwordReset=PasswordReset::where('token', $request->token)->where('email', $request->email)->first();
+           $passwordReset=PasswordReset::where('token', $request->token);
 
            if(!$passwordReset){
                return $this->sendError('Token inconnu.');
            }
-            $user=User::where('email', $request->email)->first();
+           $email = $passwordReset->first()->email;
+            $user=User::where('email', $email)->first();
             $user->password=Hash::make($request->password);
             $user->save();
-            $passwordReset->delete();
-           return $this->sendInfo('Mot de passe réinitialisé avec succès.');
+            return $this->sendInfo('Mot de passe réinitialisé avec succès.');
         } catch (\Trowable $th) {
             return $this->sendError('Erreur lors de la réinitialisation du mot de passe.', $th->getMessage(), 500);
         }
